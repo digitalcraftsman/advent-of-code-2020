@@ -1,4 +1,4 @@
-# Program reads from stdin: part1.nim < input.txt
+# Program reads from stdin: part2.nim < input.txt
 import std/[strutils, sequtils, sugar]
 
 proc checkBirthYear(year: string): bool = 
@@ -29,7 +29,7 @@ proc checkEyeColor(color: string): bool =
   color in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
 
 proc checkPassportID(id: string): bool =
-  try: id.len == 9 and id.parseInt in 0..1000000000 
+  try: id.len == 9 and id.parseInt in 0..1_000_000_000 
   except: false
 
 proc checkPassport(raw: string): bool =
@@ -48,7 +48,6 @@ proc checkPassport(raw: string): bool =
       of "hcl": checkHairColor(s[1])
       of "ecl": checkEyeColor(s[1])
       of "pid": checkPassportID(s[1])
-      of "cid": true
       else: continue
 
     foundAttrs.add(s[0])
@@ -58,4 +57,5 @@ proc checkPassport(raw: string): bool =
 var validPassports = 0
 for raw in stdin.readAll().split("\n\n"):
   if checkPassport(raw): inc(validPassports)
+
 echo validPassports
